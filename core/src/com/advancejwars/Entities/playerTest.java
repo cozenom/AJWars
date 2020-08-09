@@ -1,5 +1,6 @@
 package com.advancejwars.Entities;
 
+import com.advancejwars.CONSTANTS;
 import com.advancejwars.TiledMap.TiledMapStage;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -19,9 +20,7 @@ public class playerTest extends Sprite implements InputProcessor {
     TiledMapTileLayer layer;
     // Vector for position
     Vector2 pos;
-    // Tile stats
-    final int WIDTH = 32;
-    final int HEIGHT = 16;
+
     public State state;
     public UnitStats unitStats= new UnitStats("Knight", 2, 100, 30, 2, 2);
 
@@ -62,7 +61,7 @@ public class playerTest extends Sprite implements InputProcessor {
     public void draw(Batch batch) {
         update(Gdx.graphics.getDeltaTime());
         super.draw(batch);
-        this.setPosition(pos.x*(WIDTH/2)+pos.y*(WIDTH/2)+12,pos.y*(HEIGHT/2)-pos.x*(HEIGHT/2)+12);
+        this.setPosition(pos.x*(CONSTANTS.TILEW /2)+pos.y*(CONSTANTS.TILEW/2)+12,pos.y*(CONSTANTS.TILEH/2)-pos.x*(CONSTANTS.TILEH/2)+12);
         //setScale(1);
     }
 

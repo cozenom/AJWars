@@ -1,5 +1,6 @@
 package com.advancejwars.TiledMap;
 
+import com.advancejwars.CONSTANTS;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
@@ -40,8 +41,8 @@ public class TiledMapStage extends Stage {
                 TiledMapTileLayer.Cell cell = tiledLayer.getCell(x, y);
                 TiledMapActor actor = new TiledMapActor(tiledMap, tiledLayer, cell, new Vector2(x,y));
                 actor.setBounds(
-                        x * (16) + y * (16), // W = 32, H = 16
-                        -x * (8) + y * (8) + 8, // +8 Z offset constant
+                        x * (CONSTANTS.TILEW/2) + y * (CONSTANTS.TILEW/2), // W = 32, H = 16
+                        -x * (CONSTANTS.TILEH/2) + y * (CONSTANTS.TILEH/2) +8, // +8 Z offset constant
                         tiledLayer.getTileWidth(),
                         tiledLayer.getTileHeight());
                 addActor(actor);
