@@ -4,11 +4,13 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-public class TiledMapStage extends Stage {
+import java.util.ArrayList;
 
+public class TiledMapStage extends Stage {
     // BIBLE - https://github.com/libgdx/libgdx/wiki/Tile-maps
 
     private TiledMap tiledMap;
@@ -18,8 +20,8 @@ public class TiledMapStage extends Stage {
 
     public TiledMapStage(TiledMap tiledMap) {
         this.tiledMap = tiledMap;
-        mapLayer = (TiledMapTileLayer)tiledMap.getLayers().get("Tilemap");
-        selectionLayer = (TiledMapTileLayer)tiledMap.getLayers().get("Selection");
+        this.mapLayer = (TiledMapTileLayer)tiledMap.getLayers().get("Tilemap");
+        //this.selectionLayer = (TiledMapTileLayer)tiledMap.getLayers().get("Selection");
         createActorsForLayer(mapLayer);
     }
 
@@ -36,10 +38,10 @@ public class TiledMapStage extends Stage {
             for (int y = 0; y < tiledLayer.getHeight(); y++) {
                 // http://clintbellanger.net/articles/isometric_math/
                 TiledMapTileLayer.Cell cell = tiledLayer.getCell(x, y);
-                TiledMapActor actor = new TiledMapActor(tiledMap, tiledLayer, cell);
+                TiledMapActor actor = new TiledMapActor(tiledMap, tiledLayer, cell, new Vector2(x,y));
                 actor.setBounds(
                         x * (16) + y * (16), // W = 32, H = 16
-                        -x * (8) + y * (8) + 8,
+                        -x * (8) + y * (8) + 8, // +8 Z offset constant
                         tiledLayer.getTileWidth(),
                         tiledLayer.getTileHeight());
                 addActor(actor);

@@ -17,24 +17,40 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+import java.util.ArrayList;
+
 public class Level1 implements Screen{
     private TiledMap map;
     private IsometricTiledMapRenderer renderer;
     private OrthographicCamera camera;
     private Stage stage;
-    private playerTest player;
+    public playerTest player;
+    private ArrayList<Vector2> unitList = new ArrayList<Vector2>();
+
+    public ArrayList<Vector2> getUnitList() {
+        return unitList;
+    }
+
+    public void setUnitList() {
+        this.unitList.add(new Vector2(4,4));
+        this.unitList.add(new Vector2(0,0));
+        this.unitList.add(new Vector2(9,9));
+    }
+
 
     @Override
     public void show() {
         camera = new OrthographicCamera();
         camera.translate(160,40);
+        setUnitList();
 
         map = new TmxMapLoader().load("map/Test.tmx");
         renderer = new IsometricTiledMapRenderer(map);
 
         stage = new TiledMapStage(map);
+
         // create player
-        player = new playerTest(new Sprite(new Texture("units/test.png")), map, new Vector2(4,4));
+        player = new playerTest(new Sprite(new Texture("units/test.png")), map, unitList.get(0));
         // Place player onto Tilemap layer for collision purposes
         player.setPosition(map.getLayers().get(0).getOffsetX(),  map.getLayers().get(0).getOffsetY());
         //Gdx.input.setInputProcessor(player);
@@ -45,6 +61,7 @@ public class Level1 implements Screen{
 
     @Override
     public void render(float delta) {
+
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
         renderer.setView(camera);

@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class playerTest extends Sprite implements InputProcessor {
     TiledMap map;
+    // Layer to check for collision
     TiledMapTileLayer layer;
     // Vector for position
     Vector2 pos;
@@ -24,6 +25,8 @@ public class playerTest extends Sprite implements InputProcessor {
     public State state;
     public UnitStats unitStats= new UnitStats("Knight", 2, 100, 30, 2, 2);
 
+
+    // TODO -- IMPLEMENT
     public enum State {
         IDLE,
         SELECTED,
@@ -38,7 +41,6 @@ public class playerTest extends Sprite implements InputProcessor {
         this.map = map;
         this.layer = (TiledMapTileLayer) map.getLayers().get("Tilemap");
         // TODO something here
-
     }
 
 
@@ -71,7 +73,8 @@ public class playerTest extends Sprite implements InputProcessor {
 
     private boolean checkTraversable(float x, float y){
         System.out.println("X "+ pos.x +" Y "+ pos.y +
-                (layer.getCell((int) pos.x,(int) pos.y) != null && layer.getCell((int) pos.x,(int) pos.y).getTile().getProperties().containsKey("traversable")));
+                (layer.getCell((int) pos.x,(int) pos.y) != null &&
+                        layer.getCell((int) pos.x,(int) pos.y).getTile().getProperties().containsKey("traversable")));
 
         return (layer.getCell((int) x,(int) y) != null && layer.getCell((int) x,(int) y).getTile().getProperties().containsKey("traversable"));
     }
