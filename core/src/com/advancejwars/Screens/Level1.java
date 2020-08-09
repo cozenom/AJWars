@@ -1,5 +1,6 @@
 package com.advancejwars.Screens;
 
+import com.advancejwars.Entities.Controller;
 import com.advancejwars.Entities.playerTest;
 import com.advancejwars.TiledMap.TiledMapStage;
 import com.badlogic.gdx.*;
@@ -26,6 +27,7 @@ public class Level1 implements Screen{
     private Stage stage;
     public playerTest player;
     private ArrayList<Vector2> unitList = new ArrayList<Vector2>();
+    private Controller controller;
 
     public ArrayList<Vector2> getUnitList() {
         return unitList;
@@ -42,20 +44,23 @@ public class Level1 implements Screen{
     public void show() {
         camera = new OrthographicCamera();
         camera.translate(160,40);
-        setUnitList();
+        //setUnitList();
 
         map = new TmxMapLoader().load("map/Test.tmx");
         renderer = new IsometricTiledMapRenderer(map);
 
-        stage = new TiledMapStage(map);
+        //stage = new TiledMapStage(map);
+        // Create controller
+        controller = new Controller(new Sprite(new Texture("map/Tiles/Controller.png")),map, new Vector2(4,4));
+        //controller.setPosition(map.getLayers().get(0).getOffsetX(),  map.getLayers().get(0).getOffsetY());
 
         // create player
-        player = new playerTest(new Sprite(new Texture("units/test.png")), map, unitList.get(0));
+        //player = new playerTest(new Sprite(new Texture("units/test.png")), map, unitList.get(0));
         // Place player onto Tilemap layer for collision purposes
-        player.setPosition(map.getLayers().get(0).getOffsetX(),  map.getLayers().get(0).getOffsetY());
-        //Gdx.input.setInputProcessor(player);
+        //player.setPosition(map.getLayers().get(0).getOffsetX(),  map.getLayers().get(0).getOffsetY());
+        Gdx.input.setInputProcessor(controller);
 
-        Gdx.input.setInputProcessor(stage);
+        //Gdx.input.setInputProcessor(stage);
         camera.update();
     }
 
@@ -70,11 +75,12 @@ public class Level1 implements Screen{
         Batch batch = new SpriteBatch();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        player.draw(batch);
+        controller.draw(batch);
+        //player.draw(batch);
         batch.end();
 
 
-        stage.getViewport().setCamera(camera);
+        //stage.getViewport().setCamera(camera);
 
         // TODO multiple input processors
         // https://stackoverflow.com/questions/23546544/libgdx-multiple-objects-implementing-inputprocessor
@@ -122,6 +128,6 @@ public class Level1 implements Screen{
     public void dispose() {
         map.dispose();
         renderer.dispose();
-        stage.dispose();
+        //stage.dispose();
     }
 }

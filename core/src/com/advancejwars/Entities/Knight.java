@@ -27,24 +27,6 @@ public class Knight extends Actor implements Unit{
         sizeY = this.texture.getHeight();
 
 
-        setBounds(getX(),getY(),getX()+sizeX,getY()+sizeY);
-        addListener(
-                new InputListener(){
-                    @Override
-                    public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                        //Change system focus.
-                        /*
-                        bcom.getFocusedUnit().LoseFocus();
-                        ((Soldier)event.getTarget()).RecieveFocus();
-                        bcom.setFocusedUnit(((Soldier)event.getTarget()));
-                        return true;}});
-
-                         */
-                        return false;
-                    }
-                });
-
-
     }
 
 

@@ -16,8 +16,7 @@ public class TiledMapStage extends Stage {
 
     private TiledMap tiledMap;
     private TiledMapTileLayer mapLayer;
-    private TiledMapTileLayer selectionLayer;
-    private Boolean isActive;
+
 
     public TiledMapStage(TiledMap tiledMap) {
         this.tiledMap = tiledMap;
