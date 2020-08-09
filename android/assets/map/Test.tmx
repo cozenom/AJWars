@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.2" orientation="isometric" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="11">
+ <tileset firstgid="1" source="Tiles/Tileset.tsx"/>
+ <tileset firstgid="28" name="Selection" tilewidth="28" tileheight="14" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="28" height="14" source="Tiles/Select.png"/>
+  </tile>
+ </tileset>
+ <layer id="1" name="Tilemap" width="10" height="10">
+  <data encoding="csv">
+22,7,7,7,7,23,4,9,2,3,
+7,7,2,2,2,23,23,2,2,8,
+7,2,2,21,9,2,9,2,2,8,
+7,2,21,21,16,16,16,13,2,8,
+2,9,14,2,5,9,2,14,2,1,
+24,2,14,9,5,5,2,21,9,2,
+8,9,10,16,16,16,21,21,2,2,
+8,2,9,2,2,2,2,2,2,7,
+8,2,2,23,23,2,7,7,7,7,
+25,2,2,27,23,7,7,7,7,22
+</data>
+ </layer>
+ <layer id="7" name="Selection" width="10" height="10" opacity="0.5" offsetx="1" offsety="-8">
+  <data encoding="csv">
+28,28,28,28,28,28,28,28,28,28,
+28,28,28,28,28,28,28,28,28,28,
+28,28,28,28,28,28,28,28,28,28,
+28,28,28,28,28,28,28,28,28,28,
+28,28,28,28,28,28,28,28,28,28,
+28,28,28,28,28,28,28,28,28,28,
+28,28,28,28,28,28,28,28,28,28,
+28,28,28,28,28,28,28,28,28,28,
+28,28,28,28,28,28,28,28,28,28,
+28,28,28,28,28,28,28,28,28,28
+</data>
+ </layer>
+ <objectgroup id="6" name="Player"/>
+</map>

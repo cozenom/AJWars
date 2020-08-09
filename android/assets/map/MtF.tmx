@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.1" orientation="staggered" renderorder="right-down" width="150" height="12" tilewidth="32" tileheight="16" infinite="1" staggeraxis="y" staggerindex="odd" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="Barracks" tilewidth="32" tileheight="30" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="30" source="Tiles/Barracks.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="2" name="Castle" tilewidth="32" tileheight="29" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="29" source="Tiles/Castle.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="3" name="Mountain" tilewidth="32" tileheight="29" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="29" source="Tiles/Mountain.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="4" name="Path" tilewidth="32" tileheight="22" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="22" source="Tiles/Path.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="5" name="Plain" tilewidth="32" tileheight="22" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="22" source="Tiles/Plain.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="6" name="River_l" tilewidth="32" tileheight="24" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="24" source="Tiles/River_l.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="7" name="River_m" tilewidth="32" tileheight="23" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="23" source="Tiles/River_m.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="8" name="River_r" tilewidth="32" tileheight="22" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="22" source="Tiles/River_r.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="9" name="Sea" tilewidth="32" tileheight="20" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="20" source="Tiles/Sea.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="10" name="Volcano" tilewidth="32" tileheight="29" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="29" source="Tiles/Volcano.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="11" name="Wheat" tilewidth="32" tileheight="22" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="22" source="Tiles/Wheat.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="12" name="Blank" tilewidth="32" tileheight="22" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="22" source="Tiles/Blank.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="13" name="River_T_SW" tilewidth="32" tileheight="23" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="23" source="Tiles/River_T_SW.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="14" name="River_corner_E" tilewidth="32" tileheight="23" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="23" source="Tiles/River_corner_E.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="15" name="River_corner_N" tilewidth="32" tileheight="23" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="23" source="Tiles/River_corner_N.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="16" name="River_corner_S" tilewidth="32" tileheight="23" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="23" source="Tiles/River_corner_S.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="17" name="River_corner_W" tilewidth="32" tileheight="23" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="23" source="Tiles/River_corner_W.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="18" name="River_T_NE" tilewidth="32" tileheight="23" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="23" source="Tiles/River_T_NE.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="19" name="River_T_NW" tilewidth="32" tileheight="23" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="23" source="Tiles/River_T_NW.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="20" name="River_T_SE" tilewidth="32" tileheight="23" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="23" source="Tiles/River_T_SE.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="21" name="Forrest" tilewidth="32" tileheight="24" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="24" source="Tiles/Forrest.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="22" name="Meadow" tilewidth="32" tileheight="23" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="23" source="Tiles/Meadow.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="23" name="City" tilewidth="32" tileheight="29" tilecount="1" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="32" height="29" source="Tiles/City.png"/>
+  </tile>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="150" height="12">
+  <data encoding="csv">
+   <chunk x="48" y="272" width="16" height="16">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,9,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,9,9,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,22,9,22,0,
+0,0,0,0,0,0,0,0,0,0,0,5,9,16,5,0,
+0,0,0,0,0,0,0,0,0,0,0,3,22,7,8,12,
+0,0,0,0,0,0,0,0,0,0,3,3,14,5,9,11,
+0,0,0,0,0,0,0,0,0,0,3,10,12,17,14,1,
+0,0,0,0,0,0,0,0,0,3,3,3,6,5,9,5
+</chunk>
+   <chunk x="64" y="272" width="16" height="16">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</chunk>
+   <chunk x="48" y="288" width="16" height="16">
+0,0,0,0,0,0,0,0,0,10,10,22,6,5,12,8,
+0,0,0,0,0,0,0,0,3,3,3,20,12,5,5,7,
+0,0,0,0,0,0,0,0,10,10,3,9,8,9,12,9,
+0,0,0,0,0,0,0,0,3,3,9,22,19,23,5,15,
+0,0,0,0,0,0,0,0,0,3,3,3,6,11,22,22,
+0,0,0,0,0,0,0,0,0,3,10,6,11,11,21,21,
+0,0,0,0,0,0,0,0,0,0,3,14,22,11,21,21,
+0,0,0,0,0,0,0,0,0,0,3,8,12,22,2,21,
+0,0,0,0,0,0,0,0,0,0,0,22,17,12,4,21,
+0,0,0,0,0,0,0,0,0,0,0,6,12,4,21,0,
+0,0,0,0,0,0,0,0,0,0,0,0,5,4,22,0,
+0,0,0,0,0,0,0,0,0,0,0,0,4,12,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,12,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</chunk>
+   <chunk x="64" y="288" width="16" height="16">
+6,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+21,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+13,21,21,0,0,0,0,0,0,0,0,0,0,0,0,0,
+8,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+22,8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</chunk>
+  </data>
+ </layer>
+</map>
