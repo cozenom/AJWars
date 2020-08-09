@@ -2,7 +2,6 @@ package com.advancejwars.Screens;
 
 import com.advancejwars.Entities.Controller;
 import com.advancejwars.Entities.playerTest;
-import com.advancejwars.TiledMap.TiledMapStage;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -11,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -49,7 +47,6 @@ public class Level1 implements Screen{
         map = new TmxMapLoader().load("map/Test.tmx");
         renderer = new IsometricTiledMapRenderer(map);
 
-        //stage = new TiledMapStage(map);
         // Create controller
         controller = new Controller(new Sprite(new Texture("map/Tiles/Controller.png")),map, new Vector2(4,4));
         //controller.setPosition(map.getLayers().get(0).getOffsetX(),  map.getLayers().get(0).getOffsetY());

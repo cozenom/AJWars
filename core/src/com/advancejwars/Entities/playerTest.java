@@ -1,7 +1,6 @@
 package com.advancejwars.Entities;
 
 import com.advancejwars.CONSTANTS;
-import com.advancejwars.TiledMap.TiledMapStage;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
