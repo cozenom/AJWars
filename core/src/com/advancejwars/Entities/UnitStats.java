@@ -9,7 +9,6 @@ public class UnitStats {
     public final int movement;
     public final int range;
 
-
     public UnitStats(
             String type,
             int visionRange,

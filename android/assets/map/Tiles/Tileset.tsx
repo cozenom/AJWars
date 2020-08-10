@@ -182,7 +182,7 @@
   </properties>
   <image width="32" height="22" source="Wheat.png"/>
  </tile>
- <tile id="23">
+ <tile id="23" type="Barracks">
   <properties>
    <property name="move_cost" type="int" value="1"/>
    <property name="name" value="BlueBarracks"/>
@@ -190,7 +190,7 @@
   </properties>
   <image width="32" height="30" source="Barracks_Blue.png"/>
  </tile>
- <tile id="24">
+ <tile id="24" type="Castle">
   <properties>
    <property name="move_cost" type="int" value="1"/>
    <property name="name" value="BlueCastle"/>
@@ -198,7 +198,7 @@
   </properties>
   <image width="32" height="29" source="Castle_Blue.png"/>
  </tile>
- <tile id="26">
+ <tile id="26" type="City">
   <properties>
    <property name="move_cost" type="int" value="1"/>
    <property name="name" value="BlueCity"/>

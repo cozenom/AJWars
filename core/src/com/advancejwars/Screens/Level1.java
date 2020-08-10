@@ -24,7 +24,7 @@ public class Level1 implements Screen{
     private OrthographicCamera camera;
     private Stage stage;
     public playerTest player;
-    private ArrayList<Vector2> unitList = new ArrayList<Vector2>();
+    private ArrayList<Vector2> unitList;
     private Controller controller;
 
     public ArrayList<Vector2> getUnitList() {
@@ -32,9 +32,9 @@ public class Level1 implements Screen{
     }
 
     public void setUnitList() {
-        this.unitList.add(new Vector2(4,4));
-        this.unitList.add(new Vector2(0,0));
-        this.unitList.add(new Vector2(9,9));
+        unitList.add(new Vector2(4,4));
+        unitList.add(new Vector2(0,0));
+        unitList.add(new Vector2(9,9));
     }
 
 
@@ -42,13 +42,13 @@ public class Level1 implements Screen{
     public void show() {
         camera = new OrthographicCamera();
         camera.translate(160,40);
-        //setUnitList();
+        setUnitList();
 
         map = new TmxMapLoader().load("map/Test.tmx");
         renderer = new IsometricTiledMapRenderer(map);
 
         // Create controller
-        controller = new Controller(new Sprite(new Texture("map/Tiles/Controller.png")),map, new Vector2(4,4));
+        controller = new Controller(new Sprite(new Texture("map/Tiles/Controller.png")),map, new Vector2(4,4), unitList);
         //controller.setPosition(map.getLayers().get(0).getOffsetX(),  map.getLayers().get(0).getOffsetY());
 
         // create player

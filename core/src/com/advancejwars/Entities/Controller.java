@@ -1,15 +1,15 @@
 package com.advancejwars.Entities;
 
 import com.advancejwars.CONSTANTS;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+
+import java.util.ArrayList;
 
 public class Controller extends Sprite implements InputProcessor {
     TiledMap map;
@@ -17,13 +17,15 @@ public class Controller extends Sprite implements InputProcessor {
     TiledMapTileLayer layer;
     // Vector for position
     Vector2 pos;
+    ArrayList<Vector2> unitList;
 
 
-    public Controller(Sprite sprite, TiledMap map, Vector2 pos){
+    public Controller(Sprite sprite, TiledMap map, Vector2 pos, ArrayList<Vector2> unitList){
         super(sprite);
         this.map = map;
         this.pos = pos;
         this.layer = (TiledMapTileLayer) map.getLayers().get("Tilemap");
+        this.unitList = unitList;
     }
 
     @Override
@@ -41,6 +43,26 @@ public class Controller extends Sprite implements InputProcessor {
     private boolean checkNull(float x, float y){
         //System.out.println("Checking X "+ x +" Y "+ y);
         return (layer.getCell((int) x,(int) y) != null);
+    }
+
+    private void interact(float x, float y){
+        for (Vector2 pos : unitList){
+            if (pos.x == x && pos.y == y){
+                System.out.println("Unit found");
+                // select unit and do something
+                break;
+            }
+        }
+        // else no unit selected must be something else
+
+        int tmp = layer.getCell((int) x,(int) y).getTile().getId();
+        if (tmp == 0) { // Red barracks
+            // build units
+        } else if (tmp == 2){ // Red castle
+            // surrender option or something?
+        } else {
+            // just display tile stats or something
+        }
     }
 
     @Override
