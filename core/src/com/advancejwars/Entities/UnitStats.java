@@ -1,8 +1,5 @@
 package com.advancejwars.Entities;
 
-
-import java.util.HashMap;
-
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class UnitStats {
 
@@ -44,5 +41,11 @@ public class UnitStats {
     this.movement = movement;
     this.minAttackRange = minAttackRange;
     this.maxAttackRange = maxAttackRange;
+  }
+
+  public enum state{
+    ACTIVE,
+    IDLE,
+    DONE
   }
 }

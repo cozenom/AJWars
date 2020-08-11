@@ -17,15 +17,16 @@ public class Controller extends Sprite implements InputProcessor {
     TiledMapTileLayer layer;
     // Vector for position
     Vector2 pos;
-    ArrayList<Vector2> unitList;
+    ArrayList<Vector2> playerUnits;
+    ArrayList<Vector2> enemyUnits;
 
-
-    public Controller(Sprite sprite, TiledMap map, Vector2 pos, ArrayList<Vector2> unitList){
+    public Controller(Sprite sprite, TiledMap map, ArrayList<Vector2> playerUnits, ArrayList<Vector2> enemyUnits){
         super(sprite);
         this.map = map;
-        this.pos = pos;
+        this.pos = new Vector2(4,4);
         this.layer = (TiledMapTileLayer) map.getLayers().get("Tilemap");
-        this.unitList = unitList;
+        this.playerUnits = playerUnits;
+        this.enemyUnits = enemyUnits;
     }
 
     @Override
@@ -48,21 +49,35 @@ public class Controller extends Sprite implements InputProcessor {
     private void interact(float x, float y){
         // https://stackoverflow.com/questions/29420656/how-to-add-a-pop-up-menu-in-libgdx
         // https://github.com/libgdx/libgdx/wiki/Table
-        for (Vector2 pos : unitList){
+        for (Vector2 pos : playerUnits){
             if (pos.x == x && pos.y == y){
-                System.out.println("Unit found");
+                System.out.println("Player unit found");
                 // select unit and do something
                 break;
             }
         }
-        // else no unit selected must be something else
+        for (Vector2 pos : enemyUnits){
+            if (pos.x == x && pos.y == y){
+                System.out.println("Enemy unit found");
+                // select unit and do something
+                break;
+            }
+        }
 
-        int tmp = layer.getCell((int) x,(int) y).getTile().getId();
+        // else no unit selected must be something else
+        // ID's seem to start at 1 instead of 0 :. the -1
+        int tmp = layer.getCell((int) x,(int) y).getTile().getId()-1;
         if (tmp == 0) { // Red barracks
+            System.out.println("Red Barracks");
             // build units menu
         } else if (tmp == 2){ // Red castle
             // surrender option or something?
+            System.out.println("Red Castle");
+        } else if (tmp == 3){ // Red castle
+            // surrender option or something?
+            System.out.println("Red City");
         } else {
+            System.out.println(tmp);
             // just display tile stats or something
         }
     }
@@ -91,6 +106,8 @@ public class Controller extends Sprite implements InputProcessor {
                 if(checkNull(pos.x+1, pos.y))
                     this.pos.x += 1;
                 break;
+            case Input.Keys.E:
+                interact(pos.x, pos.y);
         }
         // Interact with environment / units here - probably E
 

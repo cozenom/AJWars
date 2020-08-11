@@ -21,7 +21,7 @@
 25,2,2,27,23,7,7,7,7,22
 </data>
  </layer>
- <layer id="7" name="Selection" width="10" height="10" opacity="0.5" offsetx="1" offsety="-8">
+ <layer id="7" name="Selection" width="10" height="10" visible="0" opacity="0.5" offsetx="1" offsety="-8">
   <data encoding="csv">
 28,28,28,28,28,28,28,28,28,28,
 28,28,28,28,28,28,28,28,28,28,

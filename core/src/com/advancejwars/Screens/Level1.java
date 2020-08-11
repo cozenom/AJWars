@@ -1,6 +1,7 @@
 package com.advancejwars.Screens;
 
 import com.advancejwars.Entities.Controller;
+import com.advancejwars.Entities.Knight;
 import com.advancejwars.Entities.playerTest;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL30;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Level1 implements Screen{
     private TiledMap map;
@@ -24,18 +26,22 @@ public class Level1 implements Screen{
     private OrthographicCamera camera;
     private Stage stage;
     public playerTest player;
-    private ArrayList<Vector2> unitList;
+    // Array for keeping track of player units
+    private ArrayList<Vector2> playerUnits = new ArrayList<Vector2>(){
+        {
+            add(new Vector2(9,8));
+            add(new Vector2(8,9));
+        }
+    };
+    // Array for keeping track of enemy units
+    private ArrayList<Vector2> enemyUnits = new ArrayList<Vector2>(){
+        {
+            add(new Vector2(1,2));
+            add(new Vector2(3,1));
+        }
+    };
+
     private Controller controller;
-
-    public ArrayList<Vector2> getUnitList() {
-        return unitList;
-    }
-
-    public void setUnitList() {
-        unitList.add(new Vector2(4,4));
-        unitList.add(new Vector2(0,0));
-        unitList.add(new Vector2(9,9));
-    }
 
 
     @Override
@@ -49,7 +55,7 @@ public class Level1 implements Screen{
         renderer = new IsometricTiledMapRenderer(map);
 
         // Create controller
-        controller = new Controller(new Sprite(new Texture("map/Tiles/Controller.png")),map, new Vector2(4,4), unitList);
+        controller = new Controller(new Sprite(new Texture("map/Tiles/Controller.png")),map, playerUnits, enemyUnits);
 
         // create player
         // Place player onto Tilemap layer for collision purposes
@@ -78,10 +84,12 @@ public class Level1 implements Screen{
 
         // TODO multiple input processors
         // https://stackoverflow.com/questions/23546544/libgdx-multiple-objects-implementing-inputprocessor
+        /*
         if (Gdx.input.isKeyPressed(Input.Keys.Q))
             camera.zoom += 0.02;
         if (Gdx.input.isKeyPressed(Input.Keys.E))
             camera.zoom -= 0.02;
+        */
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
             camera.translate(-1,0);
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
