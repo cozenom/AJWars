@@ -8,10 +8,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Knight extends Sprite {
-    private Texture texture;
-    private Vector2 pos;
-    private Sprite sprite;
+public class Knight extends Sprite implements Cloneable{
+    public Vector2 pos;
     private UnitStats stats;
     public State state;
     public int currentHP;
@@ -19,15 +17,7 @@ public class Knight extends Sprite {
     public Knight(Vector2 pos, Sprite sprite){
         super(sprite);
         this.pos = pos;
-/*
-        if (team == 0){
-            this.texture = new Texture("assets/units/Knight_Red.png");
-        } else if (team == 1){
-            this.texture = new Texture("assets/units/Knight_Blue.png");
-        }*/
-        this.sprite = new Sprite(this.texture);
-        //sizeX = this.texture.getWidth();
-        //sizeY = this.texture.getHeight();
+
         this.stats = new UnitStats("Knight", 2, 100, 50, 3, 1, 1);
         this.currentHP = this.stats.maxHealth;
         this.state = State.IDLE;
@@ -39,6 +29,14 @@ public class Knight extends Sprite {
 
     public UnitStats getStats() {
         return this.stats;
+    }
+
+    public Vector2 getPos(){
+        return this.pos;
+    }
+
+    public void setPos(Vector2 pos) {
+        this.pos = pos;
     }
 
     public void move(Vector2 newpos){
@@ -59,7 +57,7 @@ public class Knight extends Sprite {
     @Override
     public void draw(Batch batch) {
         super.draw(batch);
-        this.setPosition(pos.x*(CONSTANTS.TILEW/2)+pos.y*(CONSTANTS.TILEW/2),pos.y*(CONSTANTS.TILEH/2)-pos.x*(CONSTANTS.TILEH/2)+7);
+        this.setPosition(pos.x*(CONSTANTS.TILEW/2)+pos.y*(CONSTANTS.TILEW/2),pos.y*(CONSTANTS.TILEH/2)-pos.x*(CONSTANTS.TILEH/2)+12);
         // +7 for tile height (brown bits)
     }
 }

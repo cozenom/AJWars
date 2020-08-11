@@ -17,16 +17,14 @@ public class Controller extends Sprite implements InputProcessor {
     TiledMapTileLayer layer;
     // Vector for position
     Vector2 pos;
-    ArrayList<Vector2> playerUnits;
-    ArrayList<Vector2> enemyUnits;
+    GameData data;
 
-    public Controller(Sprite sprite, TiledMap map, ArrayList<Vector2> playerUnits, ArrayList<Vector2> enemyUnits){
+    public Controller(Sprite sprite, TiledMap map, GameData data){
         super(sprite);
         this.map = map;
         this.pos = new Vector2(4,4);
         this.layer = (TiledMapTileLayer) map.getLayers().get("Tilemap");
-        this.playerUnits = playerUnits;
-        this.enemyUnits = enemyUnits;
+        this.data = data;
     }
 
     @Override
@@ -36,9 +34,6 @@ public class Controller extends Sprite implements InputProcessor {
         // +7 for tile height (brown bits)
     }
 
-    private void update(float delta) {
-        // TODO implement movement animations
-    }
 
     // Checks if a tile is null (empty) for boundaries of map
     private boolean checkNull(float x, float y){
@@ -49,15 +44,15 @@ public class Controller extends Sprite implements InputProcessor {
     private void interact(float x, float y){
         // https://stackoverflow.com/questions/29420656/how-to-add-a-pop-up-menu-in-libgdx
         // https://github.com/libgdx/libgdx/wiki/Table
-        for (Vector2 pos : playerUnits){
-            if (pos.x == x && pos.y == y){
-                System.out.println("Player unit found");
+        for (Knight knight : data.getPlayerUnits()){
+            if (knight.pos.x == this.pos.x && knight.pos.y == this.pos.y){
+                System.out.println("Player unit found" + data.getPlayerUnits().indexOf(knight));
                 // select unit and do something
                 break;
             }
         }
-        for (Vector2 pos : enemyUnits){
-            if (pos.x == x && pos.y == y){
+        for (Knight knight : data.getEnemyUnits()){
+            if (knight.pos.x == this.pos.x && knight.pos.y == this.pos.y){
                 System.out.println("Enemy unit found");
                 // select unit and do something
                 break;
@@ -109,7 +104,6 @@ public class Controller extends Sprite implements InputProcessor {
             case Input.Keys.E:
                 interact(pos.x, pos.y);
         }
-        // Interact with environment / units here - probably E
 
         return true;
     }
