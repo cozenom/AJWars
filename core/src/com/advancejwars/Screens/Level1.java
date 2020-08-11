@@ -49,19 +49,20 @@ public class Level1 implements Screen{
         camera = new OrthographicCamera();
         camera.translate(160,40);
 
-        //setUnitList();
-
         map = new TmxMapLoader().load("map/Test.tmx");
         renderer = new IsometricTiledMapRenderer(map);
 
+        for (Vector2 pos : playerUnits){
+            new Knight(pos, new Sprite(new Texture(Gdx.files.internal("assets/units/Knight_Red.png"))));
+        }
+        for (Vector2 pos : enemyUnits){
+            new Knight(pos, new Sprite(new Texture(Gdx.files.internal("assets/units/Knight_Blue.png"))));
+        }
+
+
         // Create controller
         controller = new Controller(new Sprite(new Texture("map/Tiles/Controller.png")),map, playerUnits, enemyUnits);
-
-        // create player
-        // Place player onto Tilemap layer for collision purposes
         Gdx.input.setInputProcessor(controller);
-
-        //Gdx.input.setInputProcessor(stage);
         camera.update();
     }
 
