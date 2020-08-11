@@ -7,13 +7,12 @@ import aurelienribon.tweenengine.TweenManager;
 import com.advancejwars.tween.SpriteAccessor;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Splash implements Screen {
+public class Splash extends StageBasedScreen {
 
     private Sprite splash;
     private SpriteBatch batch; // Is the paper we draw things on
@@ -41,7 +40,6 @@ public class Splash implements Screen {
         }).start(tweenManager);
         tweenManager.update(Float.MIN_VALUE);
 */
-
     }
 
     @Override
@@ -57,28 +55,8 @@ public class Splash implements Screen {
     }
 
     @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-        dispose();
-    }
-
-    @Override
     public void dispose() {
-//        batch.dispose();
-//        splash.getTexture().dispose();
+        batch.dispose();
+        splash.getTexture().dispose();
     }
 }

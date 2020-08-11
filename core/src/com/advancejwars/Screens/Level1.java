@@ -42,19 +42,17 @@ public class Level1 implements Screen{
     public void show() {
         camera = new OrthographicCamera();
         camera.translate(160,40);
-        setUnitList();
+
+        //setUnitList();
 
         map = new TmxMapLoader().load("map/Test.tmx");
         renderer = new IsometricTiledMapRenderer(map);
 
         // Create controller
         controller = new Controller(new Sprite(new Texture("map/Tiles/Controller.png")),map, new Vector2(4,4), unitList);
-        //controller.setPosition(map.getLayers().get(0).getOffsetX(),  map.getLayers().get(0).getOffsetY());
 
         // create player
-        //player = new playerTest(new Sprite(new Texture("units/test.png")), map, unitList.get(0));
         // Place player onto Tilemap layer for collision purposes
-        //player.setPosition(map.getLayers().get(0).getOffsetX(),  map.getLayers().get(0).getOffsetY());
         Gdx.input.setInputProcessor(controller);
 
         //Gdx.input.setInputProcessor(stage);
@@ -63,7 +61,6 @@ public class Level1 implements Screen{
 
     @Override
     public void render(float delta) {
-
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
         renderer.setView(camera);

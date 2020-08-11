@@ -19,7 +19,7 @@ public class playerTest extends Sprite implements InputProcessor {
     Vector2 pos;
 
     public State state;
-    public UnitStats unitStats= new UnitStats("Knight", 2, 100, 30, 2, 2);
+    public UnitStats unitStats= new UnitStats("Knight", 2, 100, 30, 2, 1, 2);
 
 
     // TODO -- IMPLEMENT

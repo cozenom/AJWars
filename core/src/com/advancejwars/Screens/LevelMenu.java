@@ -2,25 +2,23 @@ package com.advancejwars.Screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 
-public class LevelMenu implements Screen {
+public class LevelMenu extends StageBasedScreen {
 
-    private Stage stage;
+    //private Stage stage;
     private Table table;
     private Skin skin;
 
     @Override
     public void show() {
-        stage = new Stage();
+        //stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
         skin = new Skin();
@@ -96,25 +94,6 @@ public class LevelMenu implements Screen {
         stage.draw();
     }
 
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-        dispose();
-    }
 
     @Override
     public void dispose() {

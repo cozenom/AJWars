@@ -46,6 +46,8 @@ public class Controller extends Sprite implements InputProcessor {
     }
 
     private void interact(float x, float y){
+        // https://stackoverflow.com/questions/29420656/how-to-add-a-pop-up-menu-in-libgdx
+        // https://github.com/libgdx/libgdx/wiki/Table
         for (Vector2 pos : unitList){
             if (pos.x == x && pos.y == y){
                 System.out.println("Unit found");
@@ -57,7 +59,7 @@ public class Controller extends Sprite implements InputProcessor {
 
         int tmp = layer.getCell((int) x,(int) y).getTile().getId();
         if (tmp == 0) { // Red barracks
-            // build units
+            // build units menu
         } else if (tmp == 2){ // Red castle
             // surrender option or something?
         } else {
