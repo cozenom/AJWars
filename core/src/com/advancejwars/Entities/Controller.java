@@ -1,12 +1,14 @@
 package com.advancejwars.Entities;
 
 import com.advancejwars.CONSTANTS;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -46,7 +48,20 @@ public class Controller extends Sprite implements InputProcessor {
         // https://github.com/libgdx/libgdx/wiki/Table
         for (Knight knight : data.getPlayerUnits()){
             if (knight.pos.x == this.pos.x && knight.pos.y == this.pos.y){
-                System.out.println("Player unit found" + data.getPlayerUnits().indexOf(knight));
+                int id = data.getPlayerUnits().indexOf(knight);
+                if (data.getPlayerUnits().get(id).state != Knight.State.DONE)
+                    data.getPlayerUnits().get(id).state = Knight.State.SELECTED;
+                while (data.getPlayerUnits().get(id).state == Knight.State.SELECTED){
+                    //MathUtils.clamp(this.pos.x, this.pos.x - knight.stats.movement, this.pos.x + knight.stats.movement);
+                    //MathUtils.clamp(this.pos.y, this.pos.y - knight.stats.movement, this.pos.y + knight.stats.movement);
+                    if (Gdx.input.isButtonPressed(Input.Keys.E)){
+                        System.out.println("Pressed");
+                        data.getPlayerUnits().get(data.getPlayerUnits().indexOf(knight)).setPos(this.pos);
+                        data.getPlayerUnits().get(data.getPlayerUnits().indexOf(knight)).state = Knight.State.DONE;
+                    }
+                    // show movement tiles
+                }
+                System.out.println("Player unit found");
                 // select unit and do something
                 break;
             }
@@ -63,6 +78,7 @@ public class Controller extends Sprite implements InputProcessor {
         // ID's seem to start at 1 instead of 0 :. the -1
         int tmp = layer.getCell((int) x,(int) y).getTile().getId()-1;
         if (tmp == 0) { // Red barracks
+            data.addPlayerUnits(new Vector2(this.pos.x, this.pos.y));
             System.out.println("Red Barracks");
             // build units menu
         } else if (tmp == 2){ // Red castle

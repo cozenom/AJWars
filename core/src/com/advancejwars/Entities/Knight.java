@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Knight extends Sprite implements Cloneable{
     public Vector2 pos;
-    private UnitStats stats;
+    public UnitStats stats;
     public State state;
     public int currentHP;
 
