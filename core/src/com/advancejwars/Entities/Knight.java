@@ -15,7 +15,14 @@ public class Knight extends Sprite implements Cloneable{
         super(sprite);
         this.pos = pos;
 
-        this.stats = new UnitStats("Knight", 2, 100, 50, 3, 1, 1);
+        this.stats = new UnitStats(
+                "Knight",
+                2,
+                100,
+                50,
+                3,
+                1,
+                1);
         this.currentHP = this.stats.maxHealth;
         this.state = State.IDLE;
     }
@@ -50,7 +57,8 @@ public class Knight extends Sprite implements Cloneable{
     @Override
     public void draw(Batch batch) {
         super.draw(batch);
-        this.setPosition(pos.x*(CONSTANTS.TILEW/2)+pos.y*(CONSTANTS.TILEW/2),pos.y*(CONSTANTS.TILEH/2)-pos.x*(CONSTANTS.TILEH/2)+12);
+        this.setPosition(pos.x*(CONSTANTS.TILEW/2)+pos.y*(CONSTANTS.TILEW/2),
+                pos.y*(CONSTANTS.TILEH/2)-pos.x*(CONSTANTS.TILEH/2)+12);
         // +7 for tile height (brown bits)
     }
 }

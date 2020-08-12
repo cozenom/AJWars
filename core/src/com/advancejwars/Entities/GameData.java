@@ -15,6 +15,7 @@ public class GameData {
     private final Sprite redKnight = new Sprite(new Texture("units/Knight_Red.png"));
     private final Sprite bluKnight = new Sprite(new Texture("units/Knight_Blue.png"));
 
+    // testing purposes mainly
     public GameData() {
         this.playerUnits = new ArrayList<Knight>(){
             {
@@ -30,11 +31,10 @@ public class GameData {
         };
     }
 
-
-
-
-
-
+    public GameData(ArrayList<Knight> playerUnits, ArrayList<Knight> enemyUnits){
+        this.playerUnits = playerUnits;
+        this.enemyUnits = enemyUnits;
+    }
 
     public ArrayList<Knight> getPlayerUnits() {
         return playerUnits;
@@ -44,19 +44,37 @@ public class GameData {
         return enemyUnits;
     }
 
+    public Knight findPlayer(Vector2 pos){
+        for (Knight k:playerUnits){
+            if (k.getPos() == pos){
+                return k;
+            }
+        } return null;
+    }
+
+    public Knight findEnemy(Vector2 pos){
+        for (Knight k:enemyUnits){
+            if (k.getPos() == pos){
+                return k;
+            }
+        } return null;
+    }
+
+    // TODO - do i really need these?
     public void setPlayerUnit(Vector2 newpos, int id) {
         this.playerUnits.get(id).setPos(newpos);
     }
-
     public void setEnemyUnit(Vector2 newpos, int id) {
         this.enemyUnits.get(id).setPos(newpos);
     }
 
-    public void addPlayerUnits(Vector2 pos) {
+    public void addPlayerUnit(Vector2 pos) {
         this.playerUnits.add(new Knight(pos, redKnight));
     }
-
-    public void addEnemyUnits(Vector2 pos) {
+    public void addEnemyUnit(Vector2 pos) {
         this.enemyUnits.add(new Knight(pos, bluKnight));
     }
+
+    public void killPlayerUnit(int id){this.playerUnits.remove(id);}
+    public void killEnemyUnit(int id){this.enemyUnits.remove(id); }
 }

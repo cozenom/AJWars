@@ -17,12 +17,38 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+import java.util.ArrayList;
+
 public class Level1 implements Screen{
     private TiledMap map;
     private IsometricTiledMapRenderer renderer;
     private OrthographicCamera camera;
     private GameData data;
     private Controller controller;
+
+    private final Sprite redKnight = new Sprite(new Texture("units/Knight_Red.png"));
+    private final Sprite bluKnight = new Sprite(new Texture("units/Knight_Blue.png"));
+
+    private ArrayList<Knight> playerList = new ArrayList<Knight>(){
+        {
+            add(new Knight(new Vector2(9,8), redKnight));
+            add(new Knight(new Vector2(8,9), redKnight));
+            add(new Knight(new Vector2(7,8), redKnight));
+            add(new Knight(new Vector2(6,7), redKnight));
+            add(new Knight(new Vector2(8,4), redKnight));
+        }
+    };
+    private  ArrayList<Knight> enemyList = new ArrayList<Knight>(){
+        {
+            add(new Knight(new Vector2(1,2), bluKnight));
+            add(new Knight(new Vector2(3,4), bluKnight));
+            add(new Knight(new Vector2(2,2), bluKnight));
+            add(new Knight(new Vector2(1,3), bluKnight));
+            add(new Knight(new Vector2(3,0), bluKnight));
+        }
+    };
+
+
 
     @Override
     public void show() {
@@ -31,7 +57,7 @@ public class Level1 implements Screen{
         map = new TmxMapLoader().load("map/Test.tmx");
         renderer = new IsometricTiledMapRenderer(map);
 
-        data = new GameData();
+        data = new GameData(playerList, enemyList);
 
         // Create controller
         controller = new Controller(new Sprite(new Texture("map/Tiles/Controller.png")), map, data);
@@ -54,11 +80,11 @@ public class Level1 implements Screen{
         controller.draw(batch);
 
         // TODO - at some point optimize draw order somehow (fix overlaps)
+        // https://www.geeksforgeeks.org/collections-sort-java-examples/ might help
         for (Knight k : data.getPlayerUnits()){ k.draw(batch); }
         for (Knight k : data.getEnemyUnits()){k.draw(batch); }
 
         batch.end();
-
 
         //stage.getViewport().setCamera(camera);
 
