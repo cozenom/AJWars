@@ -1,14 +1,12 @@
 package com.advancejwars.Entities;
 
 import com.advancejwars.CONSTANTS;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -20,48 +18,79 @@ public class Controller extends Sprite implements InputProcessor {
     // Vector for position
     Vector2 pos;
     GameData data;
+    //Sprite sprite = new Sprite(new Texture("map/Tiles/Controller.png"));
+    Vector2 tmpPos;
+    int currID;
+    boolean turn;
 
     public Controller(Sprite sprite, TiledMap map, GameData data){
         super(sprite);
         this.map = map;
         this.pos = new Vector2(4,4);
-        this.layer = (TiledMapTileLayer) map.getLayers().get("Tilemap");
+        this.layer = (TiledMapTileLayer) map.getLayers().get(0);
         this.data = data;
     }
 
     @Override
     public void draw(Batch batch) {
         super.draw(batch);
-        this.setPosition(pos.x*(CONSTANTS.TILEW/2)+pos.y*(CONSTANTS.TILEW/2),pos.y*(CONSTANTS.TILEH/2)-pos.x*(CONSTANTS.TILEH/2)+7);
+        this.setPosition(pos.x*(CONSTANTS.TILEW/2)+pos.y*(CONSTANTS.TILEW/2),
+                pos.y*(CONSTANTS.TILEH/2)-pos.x*(CONSTANTS.TILEH/2)+7);
         // +7 for tile height (brown bits)
     }
 
-
     // Checks if a tile is null (empty) for boundaries of map
     private boolean checkNull(float x, float y){
-        //System.out.println("Checking X "+ x +" Y "+ y);
         return (layer.getCell((int) x,(int) y) != null);
     }
 
+    private void changeTurn(){
+        // Turn: true = red turn, false = blue turn
+        // Change turn first THEN change unit states
+        turn = !turn;
+        if (turn){ // red turn - make all RED knights IDLE
+            for (Knight k : data.getPlayerUnits()){
+                k.state = Knight.State.IDLE;
+            }
+        } else { // blue turn - make all BLUE knights IDLE
+            for (Knight k : data.getEnemyUnits()){
+                k.state = Knight.State.IDLE;
+            }
+        }
+        // TODO - Overlay
+    }
+
+    private boolean checkTurn(ArrayList<Knight> list){
+        for (Knight k : list){
+            if (k.state != Knight.State.DONE){
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void interact(float x, float y){
+        // TODO - maybe put this in an if statement
         // https://stackoverflow.com/questions/29420656/how-to-add-a-pop-up-menu-in-libgdx
         // https://github.com/libgdx/libgdx/wiki/Table
         for (Knight knight : data.getPlayerUnits()){
             if (knight.pos.x == this.pos.x && knight.pos.y == this.pos.y){
-                int id = data.getPlayerUnits().indexOf(knight);
-                if (data.getPlayerUnits().get(id).state != Knight.State.DONE)
-                    data.getPlayerUnits().get(id).state = Knight.State.SELECTED;
-                while (data.getPlayerUnits().get(id).state == Knight.State.SELECTED){
-                    //MathUtils.clamp(this.pos.x, this.pos.x - knight.stats.movement, this.pos.x + knight.stats.movement);
-                    //MathUtils.clamp(this.pos.y, this.pos.y - knight.stats.movement, this.pos.y + knight.stats.movement);
-                    if (Gdx.input.isButtonPressed(Input.Keys.E)){
-                        System.out.println("Pressed");
-                        data.getPlayerUnits().get(data.getPlayerUnits().indexOf(knight)).setPos(this.pos);
-                        data.getPlayerUnits().get(data.getPlayerUnits().indexOf(knight)).state = Knight.State.DONE;
-                    }
-                    // show movement tiles
+                currID = data.getPlayerUnits().indexOf(knight);
+                if (data.getPlayerUnits().get(currID).state == Knight.State.IDLE ) {
+                    data.getPlayerUnits().get(currID).state = Knight.State.SELECTED;
+                    tmpPos = new Vector2(this.pos);
                 }
-                System.out.println("Player unit found");
+                if (data.getPlayerUnits().get(currID).state == Knight.State.SELECTED ) {
+                    // TODO pt1 - fix this shit
+
+                    //moved = (int) (Math.abs(tmpPos.x - this.pos.x) + Math.abs(tmpPos.y - this.pos.y));
+                    //System.out.println("moved = "+moved);
+                    data.getPlayerUnits().get(currID).setPos(this.pos);
+                    /*
+                    if (data.getPlayerUnits().get(currID).move(this.pos, tmpPos)){
+                        data.getPlayerUnits().get(currID).setPos(new Vector2(this.pos));
+                    }*/
+                }
                 // select unit and do something
                 break;
             }
@@ -76,21 +105,39 @@ public class Controller extends Sprite implements InputProcessor {
 
         // else no unit selected must be something else
         // ID's seem to start at 1 instead of 0 :. the -1
-        int tmp = layer.getCell((int) x,(int) y).getTile().getId()-1;
-        if (tmp == 0) { // Red barracks
+        int cellID = layer.getCell((int) x,(int) y).getTile().getId()-1;
+        if (cellID == 0) { // Red barracks
             data.addPlayerUnits(new Vector2(this.pos.x, this.pos.y));
             System.out.println("Red Barracks");
             // build units menu
-        } else if (tmp == 2){ // Red castle
+        } else if (cellID == 2){ // Red castle
             // surrender option or something?
             System.out.println("Red Castle");
-        } else if (tmp == 3){ // Red castle
+        } else if (cellID == 3){ // Red castle
             // surrender option or something?
             System.out.println("Red City");
         } else {
-            System.out.println(tmp);
+            System.out.println(cellID);
             // just display tile stats or something
         }
+    }
+
+    public void drop(int ID){
+        System.out.println("dropping");
+        data.getPlayerUnits().get(ID).setPos(new Vector2(this.pos.x, this.pos.y));
+        data.getPlayerUnits().get(ID).state = Knight.State.DONE;
+        // Check if turn is done
+        if (turn){
+            if (checkTurn(data.getPlayerUnits())){
+                changeTurn();
+            }
+        } else {
+            if (checkTurn(data.getEnemyUnits())){
+                changeTurn();
+            }
+        }
+        // TODO pt2 - terrain traversible
+        // TODO pt3 - stacking knights - can probably be done together
     }
 
     @Override
@@ -119,6 +166,10 @@ public class Controller extends Sprite implements InputProcessor {
                 break;
             case Input.Keys.E:
                 interact(pos.x, pos.y);
+                break;
+            case Input.Keys.Q:
+                drop(currID);
+                break;
         }
 
         return true;

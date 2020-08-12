@@ -24,7 +24,6 @@ public class Level1 implements Screen{
     private GameData data;
     private Controller controller;
 
-
     @Override
     public void show() {
         camera = new OrthographicCamera();
@@ -35,7 +34,7 @@ public class Level1 implements Screen{
         data = new GameData();
 
         // Create controller
-        controller = new Controller(new Sprite(new Texture("map/Tiles/Controller.png")),map, data);
+        controller = new Controller(new Sprite(new Texture("map/Tiles/Controller.png")), map, data);
         Gdx.input.setInputProcessor(controller);
         camera.update();
     }
@@ -56,7 +55,7 @@ public class Level1 implements Screen{
 
         // TODO - at some point optimize draw order somehow (fix overlaps)
         for (Knight k : data.getPlayerUnits()){ k.draw(batch); }
-        for (Knight k : data.getEnemyUnits()){ k.draw(batch); }
+        for (Knight k : data.getEnemyUnits()){k.draw(batch); }
 
         batch.end();
 

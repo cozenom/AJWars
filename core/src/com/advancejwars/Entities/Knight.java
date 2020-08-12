@@ -1,12 +1,9 @@
 package com.advancejwars.Entities;
 
 import com.advancejwars.CONSTANTS;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Knight extends Sprite implements Cloneable{
     public Vector2 pos;
@@ -39,13 +36,9 @@ public class Knight extends Sprite implements Cloneable{
         this.pos = pos;
     }
 
-    public void move(Vector2 newpos){
-        if ((newpos.x - this.pos.x) + (newpos.y - this.pos.y) < stats.movement){
-            this.pos = newpos;
-            // TODO - 1. implement this properly
-        }
-        // TODO - 2.  if enemy unit is on tile - fight
-        // TODO - 3. check traversable
+    public boolean move(Vector2 newpos, Vector2 oldpos){
+        System.out.println(((newpos.x - this.pos.x) + (newpos.y - this.pos.y) < stats.movement));
+        return (newpos.x - oldpos.x) + (newpos.y - oldpos.y) < stats.movement;
     }
 
     public enum State {
