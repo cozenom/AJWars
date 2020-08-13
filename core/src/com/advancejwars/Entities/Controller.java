@@ -10,14 +10,19 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
+/*
+** TODO - more victory conditions
+** TODO - pause menu
+**   https://github.com/libgdx/libgdx-demo-superjumper/blob/master/core/src/com/badlogicgames/superjumper/GameScreen.java
+**   https://gamedev.stackexchange.com/questions/121666/a-single-libgdx-gamescreen-with-pop-up-menu-getting-ready-hud-and-game-over
+** TODO - change turn overlay ->ChangeTurn
+** TODO - better interact
+** TODO - MOVEMENT RANGE
 
-// TODO - victory conditions
-// TODO - pause menu
-// TODO - change turn overlay ->ChangeTurn
-// TODO - better interact
-
-// TODO - resources + production
-// TODO - more units
+** TODO - city
+** TODO - resources + production
+** TODO - more units
+*/
 
 public class Controller extends Sprite implements InputProcessor {
     TiledMap map;
@@ -123,6 +128,16 @@ public class Controller extends Sprite implements InputProcessor {
         return true;
     }
 
+    private int checkVictory(){
+        /* 0 - No victory yet
+        ** 1 - Red (player) victory
+        ** 2 - Blue (enemy) victory  */
+        if (data.getPlayerUnits().size() < 1){System.out.println("Blue Victory"); return 2; }
+        if (data.getEnemyUnits().size() < 1){System.out.println("Red Victory"); return 1;}
+        return 0;
+        // TODO add more victory types
+    }
+
     private void interact(float x, float y){
         // TODO - maybe put this in an if statement
         // https://stackoverflow.com/questions/29420656/how-to-add-a-pop-up-menu-in-libgdx
@@ -210,6 +225,7 @@ public class Controller extends Sprite implements InputProcessor {
                 changeTurn();
             }
         }
+        checkVictory();
     }
 
     @Override

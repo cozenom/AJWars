@@ -15,11 +15,12 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 import java.util.ArrayList;
 
-public class Level1 implements Screen{
+public class Level1 extends StageBasedScreen{
     private TiledMap map;
     private IsometricTiledMapRenderer renderer;
     private OrthographicCamera camera;
@@ -29,7 +30,7 @@ public class Level1 implements Screen{
     private final Sprite redKnight = new Sprite(new Texture("units/Knight_Red.png"));
     private final Sprite bluKnight = new Sprite(new Texture("units/Knight_Blue.png"));
 
-    private ArrayList<Knight> playerList = new ArrayList<Knight>(){
+    private final ArrayList<Knight> playerList = new ArrayList<Knight>(){
         {
             add(new Knight(new Vector2(9,8), redKnight));
             add(new Knight(new Vector2(8,9), redKnight));
@@ -38,7 +39,7 @@ public class Level1 implements Screen{
             add(new Knight(new Vector2(8,4), redKnight));
         }
     };
-    private  ArrayList<Knight> enemyList = new ArrayList<Knight>(){
+    private final ArrayList<Knight> enemyList = new ArrayList<Knight>(){
         {
             add(new Knight(new Vector2(1,2), bluKnight));
             add(new Knight(new Vector2(3,4), bluKnight));
@@ -48,6 +49,7 @@ public class Level1 implements Screen{
         }
     };
 
+    private final Skin skin = new Skin();
 
 
     @Override
@@ -58,6 +60,12 @@ public class Level1 implements Screen{
         renderer = new IsometricTiledMapRenderer(map);
 
         data = new GameData(playerList, enemyList);
+
+        // Pause menu stuff
+        skin.add("PlayBtn", new Texture("ui/Play_up.png"));
+        skin.add("PlayBtn_d", new Texture("ui/Play_down.png"));
+        skin.add("ExitBtn", new Texture("ui/Exit_up.png"));
+        skin.add("ExitBtn_d", new Texture("ui/Exit_down.png"));
 
         // Create controller
         controller = new Controller(new Sprite(new Texture("map/Tiles/Controller.png")), map, data);
@@ -79,14 +87,17 @@ public class Level1 implements Screen{
         batch.begin();
         controller.draw(batch);
 
+
         // TODO - at some point optimize draw order somehow (fix overlaps)
-        // https://www.geeksforgeeks.org/collections-sort-java-examples/ might help
+        // https://www.geeksforgeeks.org/collections-sort-java-examples/ sorting might help
+
         for (Knight k : data.getPlayerUnits()){ k.draw(batch); }
         for (Knight k : data.getEnemyUnits()){k.draw(batch); }
 
         batch.end();
 
-        //stage.getViewport().setCamera(camera);
+
+
 
         /*
         if (Gdx.input.isKeyPressed(Input.Keys.Q))
