@@ -15,6 +15,8 @@ public class GameData {
     private final Sprite redKnight = new Sprite(new Texture("units/Knight_Red.png"));
     private final Sprite bluKnight = new Sprite(new Texture("units/Knight_Blue.png"));
 
+
+
     // testing purposes mainly
     public GameData() {
         this.playerUnits = new ArrayList<Knight>(){

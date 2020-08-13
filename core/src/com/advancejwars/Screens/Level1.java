@@ -1,5 +1,6 @@
 package com.advancejwars.Screens;
 
+import com.advancejwars.CONSTANTS;
 import com.advancejwars.Entities.Controller;
 import com.advancejwars.Entities.GameData;
 import com.advancejwars.Entities.Knight;
@@ -15,8 +16,10 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.util.ArrayList;
 
@@ -50,6 +53,19 @@ public class Level1 extends StageBasedScreen{
     };
 
     private final Skin skin = new Skin();
+    Group pauseGroup;
+    Table table;
+    State state;
+
+    boolean turn;
+    Sprite redTurn, blueTurn;
+
+    private enum State{
+        PLAY,
+        PAUSE,
+        REDVICTORY,
+        BLUEVICTORY
+    }
 
 
     @Override
@@ -67,9 +83,18 @@ public class Level1 extends StageBasedScreen{
         skin.add("ExitBtn", new Texture("ui/Exit_up.png"));
         skin.add("ExitBtn_d", new Texture("ui/Exit_down.png"));
 
+
         // Create controller
         controller = new Controller(new Sprite(new Texture("map/Tiles/Controller.png")), map, data);
         Gdx.input.setInputProcessor(controller);
+
+        // Turn stuff
+        redTurn = new Sprite(new Texture("img/Banner_R.png"));
+        redTurn.setPosition(300,75);
+        blueTurn = new Sprite(new Texture("img/Banner_B.png"));
+        blueTurn.setPosition(-20,75);
+        turn = controller.turn;
+
         camera.update();
     }
 
@@ -87,6 +112,13 @@ public class Level1 extends StageBasedScreen{
         batch.begin();
         controller.draw(batch);
 
+        if(controller.turn){
+            redTurn.draw(batch);
+        } else {
+            blueTurn.draw(batch);
+        }
+
+
 
         // TODO - at some point optimize draw order somehow (fix overlaps)
         // https://www.geeksforgeeks.org/collections-sort-java-examples/ sorting might help
@@ -98,7 +130,9 @@ public class Level1 extends StageBasedScreen{
 
 
 
-
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
+            System.out.println("Pausing");
+            pause();
         /*
         if (Gdx.input.isKeyPressed(Input.Keys.Q))
             camera.zoom += 0.02;
@@ -128,12 +162,31 @@ public class Level1 extends StageBasedScreen{
 
     @Override
     public void pause() {
+        pauseGroup = new Group();
 
+        table = new Table(skin);
+        Button playBtn = new Button(skin.getDrawable("PlayBtn"), skin.getDrawable("PlayBtn_d"));
+        Button exitBtn = new Button(skin.getDrawable("ExitBtn"), skin.getDrawable("ExitBtn_d"));
+        playBtn.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) { resume(); }});
+        exitBtn.addListener(new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
+        table.add(playBtn).spaceBottom(0).row();
+        table.add(new Image(new Texture("ui/Chains.png"))).spaceBottom(0).row();
+        table.add(exitBtn).spaceBottom(15).row();
+
+        pauseGroup.addActor(table);
     }
 
     @Override
     public void resume() {
-
+        pauseGroup.remove();
     }
 
     @Override

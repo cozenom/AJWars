@@ -3,6 +3,7 @@ package com.advancejwars.Entities;
 import com.advancejwars.CONSTANTS;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -35,7 +36,7 @@ public class Controller extends Sprite implements InputProcessor {
     Vector2 tmpPos;
     int currID;
     // Keep track of turns
-    boolean turn;
+    public boolean turn;
 
     public Controller(Sprite sprite, TiledMap map, GameData data){
         super(sprite);
@@ -45,6 +46,7 @@ public class Controller extends Sprite implements InputProcessor {
         this.data = data;
         // Red starts
         this.turn = true;
+
     }
 
     @Override

@@ -38,10 +38,7 @@ public class MainMenu extends StageBasedScreen {
 
         playBtn.addListener(new ClickListener(){
             @Override
-            public void clicked(InputEvent event, float x, float y) {
-                ((Game) Gdx.app.getApplicationListener()).setScreen(new LevelMenu());
-            }
-        });
+            public void clicked(InputEvent event, float x, float y) { ((Game) Gdx.app.getApplicationListener()).setScreen(new LevelMenu()); }});
 
         exitBtn.addListener(new ClickListener(){
 
