@@ -55,18 +55,8 @@ public class Level1 extends StageBasedScreen{
     private final Skin skin = new Skin();
     Group pauseGroup;
     Table table;
-    State state;
 
-    boolean turn;
     Sprite redTurn, blueTurn;
-
-    private enum State{
-        PLAY,
-        PAUSE,
-        REDVICTORY,
-        BLUEVICTORY
-    }
-
 
     @Override
     public void show() {
@@ -75,7 +65,8 @@ public class Level1 extends StageBasedScreen{
         map = new TmxMapLoader().load("map/Test.tmx");
         renderer = new IsometricTiledMapRenderer(map);
 
-        data = new GameData(playerList, enemyList);
+        //data = new GameData(playerList, enemyList);
+        data = new GameData();
 
         // Pause menu stuff
         skin.add("PlayBtn", new Texture("ui/Play_up.png"));
@@ -93,7 +84,6 @@ public class Level1 extends StageBasedScreen{
         redTurn.setPosition(300,75);
         blueTurn = new Sprite(new Texture("img/Banner_B.png"));
         blueTurn.setPosition(-20,75);
-        turn = controller.turn;
 
         camera.update();
     }
@@ -112,19 +102,38 @@ public class Level1 extends StageBasedScreen{
         batch.begin();
         controller.draw(batch);
 
+        // Draw knights
+        // TODO - animations ?
+        // TODO - fix overlap - keeps drawing stuff on top so start at top and render down
+        for (Knight k : data.getPlayerUnits()){ k.draw(batch); }
+        for (Knight k : data.getEnemyUnits()){k.draw(batch); }
+
+        // Draw turn banners
         if(controller.turn){
             redTurn.draw(batch);
         } else {
             blueTurn.draw(batch);
         }
 
+        if (controller.checkVictory() > 0){
+            if (controller.checkVictory() == 1){ // RED
+                Gdx.graphics.setContinuousRendering(false);
+
+                Sprite s = new Sprite(new Texture("ui/VICTORY.png"));
+                s.setPosition(75,0);
+                s.draw(batch);
+            } else { // BLUE
+                Gdx.graphics.setContinuousRendering(false);
+
+                Sprite s = new Sprite(new Texture("ui/DEFEAT.png"));
+                s.setPosition(75,0);
+                s.draw(batch);
+            }
+        }
 
 
         // TODO - at some point optimize draw order somehow (fix overlaps)
         // https://www.geeksforgeeks.org/collections-sort-java-examples/ sorting might help
-
-        for (Knight k : data.getPlayerUnits()){ k.draw(batch); }
-        for (Knight k : data.getEnemyUnits()){k.draw(batch); }
 
         batch.end();
 
@@ -180,7 +189,6 @@ public class Level1 extends StageBasedScreen{
         table.add(playBtn).spaceBottom(0).row();
         table.add(new Image(new Texture("ui/Chains.png"))).spaceBottom(0).row();
         table.add(exitBtn).spaceBottom(15).row();
-
         pauseGroup.addActor(table);
     }
 

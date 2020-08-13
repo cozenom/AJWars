@@ -16,10 +16,8 @@ import java.util.ArrayList;
 ** TODO - pause menu
 **   https://github.com/libgdx/libgdx-demo-superjumper/blob/master/core/src/com/badlogicgames/superjumper/GameScreen.java
 **   https://gamedev.stackexchange.com/questions/121666/a-single-libgdx-gamescreen-with-pop-up-menu-getting-ready-hud-and-game-over
-** TODO - change turn overlay ->ChangeTurn
 ** TODO - better interact
 ** TODO - MOVEMENT RANGE
-
 ** TODO - city
 ** TODO - resources + production
 ** TODO - more units
@@ -32,7 +30,6 @@ public class Controller extends Sprite implements InputProcessor {
     // Vector for position
     Vector2 pos;
     GameData data;
-    // Sprite sprite = new Sprite(new Texture("map/Tiles/Controller.png"));
     Vector2 tmpPos;
     int currID;
     // Keep track of turns
@@ -118,7 +115,6 @@ public class Controller extends Sprite implements InputProcessor {
                 k.state = Knight.State.IDLE;
             }
         }
-        // TODO - Overlay
     }
 
     private boolean checkTurn(ArrayList<Knight> list){
@@ -130,12 +126,12 @@ public class Controller extends Sprite implements InputProcessor {
         return true;
     }
 
-    private int checkVictory(){
+    public int checkVictory(){
         /* 0 - No victory yet
         ** 1 - Red (player) victory
         ** 2 - Blue (enemy) victory  */
-        if (data.getPlayerUnits().size() < 1){System.out.println("Blue Victory"); return 2; }
-        if (data.getEnemyUnits().size() < 1){System.out.println("Red Victory"); return 1;}
+        if (data.getPlayerUnits().size() < 1){/*System.out.println("Blue Victory");*/ return 2; }
+        if (data.getEnemyUnits().size() < 1){/*System.out.println("Red Victory");*/ return 1;}
         return 0;
         // TODO add more victory types
     }
@@ -181,8 +177,8 @@ public class Controller extends Sprite implements InputProcessor {
         // ID's seem to start at 1 instead of 0 :. the -1
         int cellID = layer.getCell((int) x,(int) y).getTile().getId()-1;
         if (cellID == 0) { // Red barracks
-            data.addPlayerUnit(new Vector2(this.pos.x, this.pos.y));
-            // TODO - unit production
+            // data.addPlayerUnit(new Vector2(this.pos.x, this.pos.y));
+            // TODO - proper unit production
             System.out.println("Red Barracks");
             // build units menu
         } else if (cellID == 2){ // Red castle
