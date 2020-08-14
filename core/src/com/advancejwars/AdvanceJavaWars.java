@@ -1,7 +1,9 @@
 package com.advancejwars;
 
+import com.advancejwars.Screens.Level1;
 import com.advancejwars.Screens.Splash;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 
 public class AdvanceJavaWars extends Game {
 
@@ -11,7 +13,9 @@ public class AdvanceJavaWars extends Game {
 	@Override
 	public void create () {
 		game = this;
-		setScreen(new Splash());
+		//setScreen(new Splash());
+		((Game) Gdx.app.getApplicationListener()).setScreen(new Level1());
+
 	}
 
 

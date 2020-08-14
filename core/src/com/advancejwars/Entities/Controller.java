@@ -3,7 +3,6 @@ package com.advancejwars.Entities;
 import com.advancejwars.CONSTANTS;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -43,7 +42,6 @@ public class Controller extends Sprite implements InputProcessor {
         this.data = data;
         // Red starts
         this.turn = true;
-
     }
 
     @Override
@@ -228,11 +226,6 @@ public class Controller extends Sprite implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
         switch (keycode) {
             case Input.Keys.W:
                 if(checkNull(pos.x, pos.y+1))
@@ -257,8 +250,14 @@ public class Controller extends Sprite implements InputProcessor {
                 drop(currID);
                 break;
         }
+        return false;
+    }
 
-        return true;
+    @Override
+    public boolean keyUp(int keycode) {
+
+
+        return false;
     }
 
     @Override

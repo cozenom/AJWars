@@ -22,7 +22,7 @@ public class LevelMenu extends StageBasedScreen {
         Gdx.input.setInputProcessor(stage);
 
         skin = new Skin();
-        skin.add("BG", new Texture("ui/BG_LS.png"));
+        skin.add("BG", new Texture("ui/BG.png"));
         skin.add("ExitBtn", new Texture("ui/Exit_up.png"));
         skin.add("ExitBtn_d", new Texture("ui/Exit_down.png"));
         skin.add("LevelBtn", new Texture("ui/Level_up.png"));

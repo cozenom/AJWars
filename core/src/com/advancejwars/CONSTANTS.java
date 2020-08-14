@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class CONSTANTS {
     // Title
     public static final String TITLE = "AJWars";
-    public static final String VER = "0.7";
+    public static final String VER = "0.89";
 
     // Window sizes
     public static final int WIDTH = 720;

@@ -20,8 +20,6 @@ public class Splash extends StageBasedScreen {
 
     @Override
     public void show() {
-        ((Game)Gdx.app.getApplicationListener()).setScreen(new Level1());
-/*
         batch = new SpriteBatch();
         Texture splashTexture = new Texture("img/splashTexture.png");
 
@@ -39,7 +37,6 @@ public class Splash extends StageBasedScreen {
             }
         }).start(tweenManager);
         tweenManager.update(Float.MIN_VALUE);
-*/
     }
 
     @Override

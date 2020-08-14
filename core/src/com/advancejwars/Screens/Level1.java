@@ -16,14 +16,13 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.util.ArrayList;
 
-public class Level1 extends StageBasedScreen{
+public class Level1 extends StageBasedScreen implements InputProcessor{
     private TiledMap map;
     private IsometricTiledMapRenderer renderer;
     private OrthographicCamera camera;
@@ -53,10 +52,11 @@ public class Level1 extends StageBasedScreen{
     };
 
     private final Skin skin = new Skin();
-    Group pauseGroup;
     Table table;
+    boolean paused = false;
 
     Sprite redTurn, blueTurn;
+    InputMultiplexer multiplexer;
 
     @Override
     public void show() {
@@ -68,22 +68,28 @@ public class Level1 extends StageBasedScreen{
         //data = new GameData(playerList, enemyList);
         data = new GameData();
 
-        // Pause menu stuff
-        skin.add("PlayBtn", new Texture("ui/Play_up.png"));
-        skin.add("PlayBtn_d", new Texture("ui/Play_down.png"));
-        skin.add("ExitBtn", new Texture("ui/Exit_up.png"));
-        skin.add("ExitBtn_d", new Texture("ui/Exit_down.png"));
-
-
         // Create controller
         controller = new Controller(new Sprite(new Texture("map/Tiles/Controller.png")), map, data);
-        Gdx.input.setInputProcessor(controller);
+
+        // Multiplexer can have multiple inputs
+        multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(this);
+        multiplexer.addProcessor(this.stage);
+        multiplexer.addProcessor(controller);
+
+        Gdx.input.setInputProcessor(multiplexer);
 
         // Turn stuff
         redTurn = new Sprite(new Texture("img/Banner_R.png"));
-        redTurn.setPosition(300,75);
+        redTurn.setPosition(299,75);
         blueTurn = new Sprite(new Texture("img/Banner_B.png"));
-        blueTurn.setPosition(-20,75);
+        blueTurn.setPosition(-18,75);
+
+        // TODO - change to continue
+        skin.add("Back", new Texture("ui/Back_up.png"));
+        skin.add("Back_d", new Texture("ui/Back_down.png"));
+        skin.add("ExitBtn", new Texture("ui/Exit_up.png"));
+        skin.add("ExitBtn_d", new Texture("ui/Exit_down.png"));
 
         camera.update();
     }
@@ -105,49 +111,50 @@ public class Level1 extends StageBasedScreen{
         // Draw knights
         // TODO - animations ?
         // TODO - fix overlap - keeps drawing stuff on top so start at top and render down
+        // https://www.geeksforgeeks.org/collections-sort-java-examples/ sorting might help
+
         for (Knight k : data.getPlayerUnits()){ k.draw(batch); }
-        for (Knight k : data.getEnemyUnits()){k.draw(batch); }
+        for (Knight k : data.getEnemyUnits()){ k.draw(batch); }
 
-        // Draw turn banners
-        if(controller.turn){
-            redTurn.draw(batch);
-        } else {
-            blueTurn.draw(batch);
-        }
-
+        // Check victory
         if (controller.checkVictory() > 0){
             if (controller.checkVictory() == 1){ // RED
-                Gdx.graphics.setContinuousRendering(false);
-
                 Sprite s = new Sprite(new Texture("ui/VICTORY.png"));
                 s.setPosition(75,0);
                 s.draw(batch);
             } else { // BLUE
-                Gdx.graphics.setContinuousRendering(false);
-
                 Sprite s = new Sprite(new Texture("ui/DEFEAT.png"));
                 s.setPosition(75,0);
                 s.draw(batch);
             }
         }
 
+        // Draw turn banners
+        if(controller.turn && controller.checkVictory() == 0){
+            redTurn.draw(batch);
+        }
+        else if (!controller.turn && controller.checkVictory() == 0){
+            blueTurn.draw(batch);
+        }
+        else {
+            redTurn.draw(batch);
+            blueTurn.draw(batch);
+        }
 
-        // TODO - at some point optimize draw order somehow (fix overlaps)
-        // https://www.geeksforgeeks.org/collections-sort-java-examples/ sorting might help
+        if (paused){
+            pause();
+            this.stage.addActor(table);
+            this.stage.draw();
+        }
 
         batch.end();
 
-
-
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
-            System.out.println("Pausing");
-            pause();
         /*
         if (Gdx.input.isKeyPressed(Input.Keys.Q))
             camera.zoom += 0.02;
         if (Gdx.input.isKeyPressed(Input.Keys.E))
             camera.zoom -= 0.02;
-        */
+
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
             camera.translate(-1,0);
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
@@ -156,9 +163,11 @@ public class Level1 extends StageBasedScreen{
             camera.translate(0,1);
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN))
             camera.translate(0,-1);
-        camera.zoom = MathUtils.clamp(camera.zoom, 0.1f, 0.5f);
+
         camera.position.x = MathUtils.clamp(camera.position.x, 0, 320);
         camera.position.y = MathUtils.clamp(camera.position.y, 0, 80);
+        */
+        camera.zoom = MathUtils.clamp(camera.zoom, 0.1f, 0.5f);
         camera.update();
     }
 
@@ -171,30 +180,34 @@ public class Level1 extends StageBasedScreen{
 
     @Override
     public void pause() {
-        pauseGroup = new Group();
+        multiplexer.removeProcessor(controller);
 
+        // TODO - make this work
         table = new Table(skin);
-        Button playBtn = new Button(skin.getDrawable("PlayBtn"), skin.getDrawable("PlayBtn_d"));
+        Button resumeBtn = new Button(skin.getDrawable("Back"), skin.getDrawable("Back_d"));
         Button exitBtn = new Button(skin.getDrawable("ExitBtn"), skin.getDrawable("ExitBtn_d"));
-        playBtn.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) { resume(); }});
-        exitBtn.addListener(new ClickListener(){
 
+        resumeBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.exit();
-            }
-        });
-        table.add(playBtn).spaceBottom(0).row();
+                resume();
+            }});
+        exitBtn.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) { ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu()); }});
+
+        table.add(resumeBtn).spaceBottom(0).row();
         table.add(new Image(new Texture("ui/Chains.png"))).spaceBottom(0).row();
         table.add(exitBtn).spaceBottom(15).row();
-        pauseGroup.addActor(table);
+        table.setPosition(CONSTANTS.WIDTH/2,CONSTANTS.HEIGHT/2);
     }
 
     @Override
     public void resume() {
-        pauseGroup.remove();
+        table.clear();
+        System.out.println("Resuming");
+        paused = false;
+        multiplexer.addProcessor(controller);
     }
 
     @Override
@@ -206,6 +219,55 @@ public class Level1 extends StageBasedScreen{
     public void dispose() {
         map.dispose();
         renderer.dispose();
-        //stage.dispose();
+        stage.dispose();
+    }
+
+
+    @Override
+    public boolean keyDown(int keycode) {
+        if (keycode == Input.Keys.ESCAPE && !paused) {
+            Gdx.graphics.setContinuousRendering(false);
+            paused = true;
+            pause();
+        } else if ((keycode == Input.Keys.ESCAPE && paused)){
+            Gdx.graphics.setContinuousRendering(true);
+            resume();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }
