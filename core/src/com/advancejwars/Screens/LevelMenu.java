@@ -25,15 +25,24 @@ public class LevelMenu extends StageBasedScreen {
         skin.add("BG", new Texture("ui/BG.png"));
         skin.add("ExitBtn", new Texture("ui/Exit_up.png"));
         skin.add("ExitBtn_d", new Texture("ui/Exit_down.png"));
-        skin.add("LevelBtn", new Texture("ui/Level_up.png"));
-        skin.add("LevelBtn_d", new Texture("ui/Level_down.png"));
+
+        skin.add("Level1Btn", new Texture("ui/level_1_up.png"));
+        skin.add("Level1Btn_d", new Texture("ui/level_1_down.png"));
+
+        skin.add("Level2Btn", new Texture("ui/level_2_up.png"));
+        skin.add("Level2Btn_d", new Texture("ui/level_2_down.png"));
+
+        skin.add("Level3Btn", new Texture("ui/level_3_up.png"));
+        skin.add("Level3Btn_d", new Texture("ui/level_3_down.png"));
+
+
         skin.add("Back", new Texture("ui/Back_up.png"));
         skin.add("Back_d", new Texture("ui/Back_down.png"));
 
         // Buttons
-        Button lvl1 = new Button(skin.getDrawable("LevelBtn"), skin.getDrawable("LevelBtn_d"));
-        Button lvl2 = new Button(skin.getDrawable("LevelBtn"), skin.getDrawable("LevelBtn_d"));
-        Button lvl3 = new Button(skin.getDrawable("LevelBtn"), skin.getDrawable("LevelBtn_d"));
+        Button lvl1 = new Button(skin.getDrawable("Level1Btn"), skin.getDrawable("Level1Btn_d"));
+        Button lvl2 = new Button(skin.getDrawable("Level2Btn"), skin.getDrawable("Level2Btn_d"));
+        Button lvl3 = new Button(skin.getDrawable("Level3Btn"), skin.getDrawable("Level3Btn_d"));
 
         Button back = new Button(skin.getDrawable("Back"), skin.getDrawable("Back_d"));
         Button exitBtn = new Button(skin.getDrawable("ExitBtn"), skin.getDrawable("ExitBtn_d"));
@@ -43,6 +52,18 @@ public class LevelMenu extends StageBasedScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 ((Game) Gdx.app.getApplicationListener()).setScreen(new Level1());
+            }
+        });
+        lvl2.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                //((Game) Gdx.app.getApplicationListener()).setScreen(new Level2());
+            }
+        });
+        lvl2.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                //((Game) Gdx.app.getApplicationListener()).setScreen(new Level3());
             }
         });
         back.addListener(new ClickListener() {

@@ -20,6 +20,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Level1 extends StageBasedScreen implements InputProcessor{
     private TiledMap map;
@@ -28,9 +31,9 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
     private GameData data;
     private Controller controller;
 
+    // Units to spawn
     private final Sprite redKnight = new Sprite(new Texture("units/Knight_Red.png"));
     private final Sprite bluKnight = new Sprite(new Texture("units/Knight_Blue.png"));
-
     private final ArrayList<Knight> playerList = new ArrayList<Knight>(){
         {
             add(new Knight(new Vector2(9,8), redKnight));
@@ -49,13 +52,15 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
             add(new Knight(new Vector2(3,0), bluKnight));
         }
     };
+    HashMap<Knight, Float> renderOrder;
+
+    private InputMultiplexer multiplexer;
 
     private final Skin skin = new Skin();
     Table table;
     boolean paused = false;
 
     Sprite redTurn, blueTurn;
-    InputMultiplexer multiplexer;
 
     @Override
     public void show() {
@@ -64,8 +69,10 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
         map = new TmxMapLoader().load("map/Test.tmx");
         renderer = new IsometricTiledMapRenderer(map);
 
-        //data = new GameData(playerList, enemyList);
-        data = new GameData();
+
+        data = new GameData(playerList, enemyList);
+        //data = new GameData(); //-for debugging
+        renderOrder = data.updateRenderOrder();
 
         // Create controller
         controller = new Controller(new Sprite(new Texture("map/Tiles/Controller.png")), map, data);
@@ -103,6 +110,9 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
         Batch batch = new SpriteBatch();
         batch.setProjectionMatrix(camera.combined);
 
+        renderOrder = data.updateRenderOrder();
+
+
         // Draw stuff in here
         batch.begin();
         controller.draw(batch);
@@ -112,8 +122,14 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
         // TODO - fix overlap - keeps drawing stuff on top so start at top and render down
         // https://www.geeksforgeeks.org/collections-sort-java-examples/ sorting might help
 
-        for (Knight k : data.getPlayerUnits()){ k.draw(batch); }
-        for (Knight k : data.getEnemyUnits()){ k.draw(batch); }
+        for (Map.Entry mapElement : renderOrder.entrySet()) {
+            Knight k = (Knight) mapElement.getKey();
+            k.draw(batch);
+            //int value = ((int)mapElement.getValue() + 10);
+        }
+
+        //for (Knight k : data.getPlayerUnits()){ k.draw(batch); }
+        //for (Knight k : data.getEnemyUnits()){ k.draw(batch); }
 
         // Check victory
         if (controller.checkVictory() > 0){
