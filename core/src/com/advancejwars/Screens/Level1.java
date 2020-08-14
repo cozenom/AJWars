@@ -19,7 +19,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-
 import java.util.ArrayList;
 
 public class Level1 extends StageBasedScreen implements InputProcessor{
@@ -73,8 +72,8 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
 
         // Multiplexer can have multiple inputs
         multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(this);
         multiplexer.addProcessor(this.stage);
+        multiplexer.addProcessor(this);
         multiplexer.addProcessor(controller);
 
         Gdx.input.setInputProcessor(multiplexer);
@@ -142,7 +141,6 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
         }
 
         if (paused){
-            pause();
             this.stage.addActor(table);
             this.stage.draw();
         }
@@ -167,7 +165,8 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
         camera.position.x = MathUtils.clamp(camera.position.x, 0, 320);
         camera.position.y = MathUtils.clamp(camera.position.y, 0, 80);
         */
-        camera.zoom = MathUtils.clamp(camera.zoom, 0.1f, 0.5f);
+        //camera.zoom = MathUtils.clamp(camera.zoom, 0.1f, 0.5f);
+        camera.zoom = 0.5f;
         camera.update();
     }
 
@@ -180,32 +179,31 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
 
     @Override
     public void pause() {
-        multiplexer.removeProcessor(controller);
+        System.out.println("Pausing");
 
-        // TODO - make this work
+        multiplexer.removeProcessor(controller);
         table = new Table(skin);
         Button resumeBtn = new Button(skin.getDrawable("Back"), skin.getDrawable("Back_d"));
         Button exitBtn = new Button(skin.getDrawable("ExitBtn"), skin.getDrawable("ExitBtn_d"));
 
         resumeBtn.addListener(new ClickListener(){
             @Override
-            public void clicked(InputEvent event, float x, float y) {
-                resume();
-            }});
+            public void clicked(InputEvent event, float x, float y) { resume(); }});
         exitBtn.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) { ((Game) Gdx.app.getApplicationListener()).setScreen(new MainMenu()); }});
 
-        table.add(resumeBtn).spaceBottom(0).row();
-        table.add(new Image(new Texture("ui/Chains.png"))).spaceBottom(0).row();
+        table.add(resumeBtn).spaceBottom(15).row();
         table.add(exitBtn).spaceBottom(15).row();
         table.setPosition(CONSTANTS.WIDTH/2,CONSTANTS.HEIGHT/2);
+
     }
 
     @Override
     public void resume() {
-        table.clear();
         System.out.println("Resuming");
+
+        table.clear();
         paused = false;
         multiplexer.addProcessor(controller);
     }

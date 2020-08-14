@@ -11,12 +11,9 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 /*
-** TODO - more victory conditions
-** TODO - pause menu
-**   https://github.com/libgdx/libgdx-demo-superjumper/blob/master/core/src/com/badlogicgames/superjumper/GameScreen.java
-**   https://gamedev.stackexchange.com/questions/121666/a-single-libgdx-gamescreen-with-pop-up-menu-getting-ready-hud-and-game-over
-** TODO - better interact
 ** TODO - MOVEMENT RANGE
+** TODO - more victory conditions
+** TODO - better interact
 ** TODO - city
 ** TODO - resources + production
 ** TODO - more units
@@ -149,7 +146,6 @@ public class Controller extends Sprite implements InputProcessor {
                     tmpPos = new Vector2(this.pos);
                 }
                 if (data.getPlayerUnits().get(currID).state == Knight.State.SELECTED ) {
-                    // TODO put together ?
                     data.getPlayerUnits().get(currID).setPos(this.pos);
                 }
                 break;
