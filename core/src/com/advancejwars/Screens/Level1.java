@@ -119,8 +119,6 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
 
         // Draw knights
         // TODO - animations ?
-        // TODO - fix overlap - keeps drawing stuff on top so start at top and render down
-        // https://www.geeksforgeeks.org/collections-sort-java-examples/ sorting might help
 
         for (Map.Entry mapElement : renderOrder.entrySet()) {
             Knight k = (Knight) mapElement.getKey();
