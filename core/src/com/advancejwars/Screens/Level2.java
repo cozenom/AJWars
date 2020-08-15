@@ -16,15 +16,17 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO - Make a level class to import and reduce clutter here
 
-public class Level1 extends StageBasedScreen implements InputProcessor{
+public class Level2 extends StageBasedScreen implements InputProcessor{
     private TiledMap map;
     private IsometricTiledMapRenderer renderer;
     private OrthographicCamera camera;
@@ -36,11 +38,15 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
     private final Sprite bluKnight = new Sprite(new Texture("units/Knight_Blue.png"));
     private final ArrayList<Knight> playerList = new ArrayList<Knight>(){
         {
-            add(new Knight(new Vector2(9,8), redKnight));
-            add(new Knight(new Vector2(8,9), redKnight));
-            add(new Knight(new Vector2(7,8), redKnight));
-            add(new Knight(new Vector2(6,7), redKnight));
-            add(new Knight(new Vector2(8,4), redKnight));
+            add(new Knight(new Vector2(17,16), redKnight));
+            add(new Knight(new Vector2(16,18), redKnight));
+            add(new Knight(new Vector2(17,18), redKnight));
+            add(new Knight(new Vector2(16,17), redKnight));
+            add(new Knight(new Vector2(18,16), redKnight));
+            add(new Knight(new Vector2(15,18), redKnight));
+            add(new Knight(new Vector2(13,16), redKnight));
+            add(new Knight(new Vector2(19,14), redKnight));
+
         }
     };
     private final ArrayList<Knight> enemyList = new ArrayList<Knight>(){
@@ -48,8 +54,11 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
             add(new Knight(new Vector2(1,2), bluKnight));
             add(new Knight(new Vector2(3,4), bluKnight));
             add(new Knight(new Vector2(2,2), bluKnight));
-            add(new Knight(new Vector2(1,3), bluKnight));
+            add(new Knight(new Vector2(2,3), bluKnight));
             add(new Knight(new Vector2(3,0), bluKnight));
+            add(new Knight(new Vector2(8,5), bluKnight));
+            add(new Knight(new Vector2(3,6), bluKnight));
+            add(new Knight(new Vector2(7,2), bluKnight));
         }
     };
     HashMap<Knight, Float> renderOrder;
@@ -66,7 +75,7 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
     public void show() {
         camera = new OrthographicCamera();
         camera.translate(160,40);
-        map = new TmxMapLoader().load("map/Level1.tmx");
+        map = new TmxMapLoader().load("map/Level2.tmx");
         renderer = new IsometricTiledMapRenderer(map);
 
 
@@ -87,7 +96,7 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
 
         // Turn stuff
         redTurn = new Sprite(new Texture("img/Banner_R.png"));
-        redTurn.setPosition(299,75);
+        redTurn.setPosition(600,75);
         blueTurn = new Sprite(new Texture("img/Banner_B.png"));
         blueTurn.setPosition(-18,75);
 
@@ -122,9 +131,6 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
             k.draw(batch);
         }
 
-        //for (Knight k : data.getPlayerUnits()){ k.draw(batch); }
-        //for (Knight k : data.getEnemyUnits()){ k.draw(batch); }
-
         // Check victory
         if (controller.checkVictory() > 0){
             if (controller.checkVictory() == 1){ // RED
@@ -157,11 +163,11 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
 
         batch.end();
 
-        /* debugging purposes
+        //debugging purposes
         if (Gdx.input.isKeyPressed(Input.Keys.Q))
-            camera.zoom += 0.02;
+            camera.zoom += 0.1;
         if (Gdx.input.isKeyPressed(Input.Keys.E))
-            camera.zoom -= 0.02;
+            camera.zoom -= 0.1;
 
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
             camera.translate(-1,0);
@@ -172,9 +178,9 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN))
             camera.translate(0,-1);
 
-        camera.position.x = MathUtils.clamp(camera.position.x, 0, 320);
-        camera.position.y = MathUtils.clamp(camera.position.y, 0, 80);
-        */
+        //camera.position.x = MathUtils.clamp(camera.position.x, 0, 320);
+        //camera.position.y = MathUtils.clamp(camera.position.y, 0, 80);
+
         //camera.zoom = MathUtils.clamp(camera.zoom, 0.1f, 0.5f);
         camera.zoom = 0.5f;
         camera.update();

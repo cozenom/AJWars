@@ -35,7 +35,7 @@ public class Controller extends Sprite implements InputProcessor {
         super(sprite);
         this.map = map;
         this.pos = new Vector2(4,4);
-        this.layer = (TiledMapTileLayer) map.getLayers().get(0);
+        this.layer = (TiledMapTileLayer) map.getLayers().get("Tilemap");
         this.data = data;
         // Red starts
         this.turn = true;

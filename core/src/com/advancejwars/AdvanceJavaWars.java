@@ -13,8 +13,8 @@ public class AdvanceJavaWars extends Game {
 	@Override
 	public void create () {
 		game = this;
-		//setScreen(new Splash());
-		((Game) Gdx.app.getApplicationListener()).setScreen(new Level1());
+		setScreen(new Splash());
+		//((Game) Gdx.app.getApplicationListener()).setScreen(new Level1());
 	}
 
 

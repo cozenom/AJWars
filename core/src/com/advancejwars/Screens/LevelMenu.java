@@ -57,7 +57,7 @@ public class LevelMenu extends StageBasedScreen {
         lvl2.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //((Game) Gdx.app.getApplicationListener()).setScreen(new Level2());
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new Level2());
             }
         });
         lvl2.addListener(new ClickListener(){
