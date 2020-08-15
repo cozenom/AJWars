@@ -55,7 +55,7 @@ public class Level2 extends StageBasedScreen implements InputProcessor{
             add(new Knight(new Vector2(3,4), bluKnight));
             add(new Knight(new Vector2(2,2), bluKnight));
             add(new Knight(new Vector2(2,3), bluKnight));
-            add(new Knight(new Vector2(3,0), bluKnight));
+            add(new Knight(new Vector2(3,2), bluKnight));
             add(new Knight(new Vector2(8,5), bluKnight));
             add(new Knight(new Vector2(3,6), bluKnight));
             add(new Knight(new Vector2(7,2), bluKnight));
@@ -77,6 +77,9 @@ public class Level2 extends StageBasedScreen implements InputProcessor{
         camera.translate(160,40);
         map = new TmxMapLoader().load("map/Level2.tmx");
         renderer = new IsometricTiledMapRenderer(map);
+
+
+        camera.zoom = 0.5f;
 
 
         data = new GameData(playerList, enemyList);
@@ -182,7 +185,6 @@ public class Level2 extends StageBasedScreen implements InputProcessor{
         //camera.position.y = MathUtils.clamp(camera.position.y, 0, 80);
 
         //camera.zoom = MathUtils.clamp(camera.zoom, 0.1f, 0.5f);
-        camera.zoom = 0.5f;
         camera.update();
     }
 

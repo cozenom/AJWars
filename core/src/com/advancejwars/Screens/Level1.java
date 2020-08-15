@@ -106,6 +106,8 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
         renderer.setView(camera);
         renderer.render();
 
+        camera.zoom = 0.5f;
+
         Batch batch = new SpriteBatch();
         batch.setProjectionMatrix(camera.combined);
 
@@ -176,7 +178,7 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
         camera.position.y = MathUtils.clamp(camera.position.y, 0, 80);
         */
         //camera.zoom = MathUtils.clamp(camera.zoom, 0.1f, 0.5f);
-        camera.zoom = 0.5f;
+
         camera.update();
     }
 
