@@ -15,7 +15,6 @@ public class AdvanceJavaWars extends Game {
 		game = this;
 		//setScreen(new Splash());
 		((Game) Gdx.app.getApplicationListener()).setScreen(new Level1());
-
 	}
 
 
@@ -26,7 +25,7 @@ public class AdvanceJavaWars extends Game {
 	
 	@Override
 	public void dispose () {
-		super.dispose(); //rm?
+		super.dispose();
 	}
 
 	public void MyScreen(Game game) {

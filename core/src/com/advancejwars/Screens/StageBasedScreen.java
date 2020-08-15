@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 /**
- * Class to reduce boilerplate when creating a screen that will have a {@link Stage}
+ * Class to reduce boilerplate when creating a screen that will have a Stage
  */
 public abstract class StageBasedScreen implements Screen {
 

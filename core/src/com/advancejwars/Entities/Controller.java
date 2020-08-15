@@ -168,17 +168,18 @@ public class Controller extends Sprite implements InputProcessor {
         }
 
         // else no unit selected must be something else
-        // ID's seem to start at 1 instead of 0 :. the -1
+        // TODO - production
+        // TODO - surrender maybe
+        // ID's start at 1 :. the -1
         int cellID = layer.getCell((int) x,(int) y).getTile().getId()-1;
         if (cellID == 0) { // Red barracks
             // data.addPlayerUnit(new Vector2(this.pos.x, this.pos.y));
-            // TODO - proper unit production
             System.out.println("Red Barracks");
             // build units menu
         } else if (cellID == 2){ // Red castle
             // surrender option or something?
             System.out.println("Red Castle");
-        } else if (cellID == 3){ // Red castle
+        } else if (cellID == 3){ // Red City
             // surrender option or something?
             System.out.println("Red City");
         } else {

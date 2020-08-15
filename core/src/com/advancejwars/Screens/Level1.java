@@ -14,15 +14,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
+
+// TODO - Make a level class to import and reduce clutter here
 
 public class Level1 extends StageBasedScreen implements InputProcessor{
     private TiledMap map;
@@ -118,12 +118,9 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
         controller.draw(batch);
 
         // Draw knights
-        // TODO - animations ?
-
         for (Map.Entry mapElement : renderOrder.entrySet()) {
             Knight k = (Knight) mapElement.getKey();
             k.draw(batch);
-            //int value = ((int)mapElement.getValue() + 10);
         }
 
         //for (Knight k : data.getPlayerUnits()){ k.draw(batch); }
@@ -161,7 +158,7 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
 
         batch.end();
 
-        /*
+        /* debugging purposes
         if (Gdx.input.isKeyPressed(Input.Keys.Q))
             camera.zoom += 0.02;
         if (Gdx.input.isKeyPressed(Input.Keys.E))
@@ -194,6 +191,7 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
     @Override
     public void pause() {
         System.out.println("Pausing");
+        paused = true;
 
         multiplexer.removeProcessor(controller);
         table = new Table(skin);
@@ -210,7 +208,6 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
         table.add(resumeBtn).spaceBottom(15).row();
         table.add(exitBtn).spaceBottom(15).row();
         table.setPosition(CONSTANTS.WIDTH/2,CONSTANTS.HEIGHT/2);
-
     }
 
     @Override
@@ -239,7 +236,6 @@ public class Level1 extends StageBasedScreen implements InputProcessor{
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.ESCAPE && !paused) {
             Gdx.graphics.setContinuousRendering(false);
-            paused = true;
             pause();
         } else if ((keycode == Input.Keys.ESCAPE && paused)){
             Gdx.graphics.setContinuousRendering(true);
